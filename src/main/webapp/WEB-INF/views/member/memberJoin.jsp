@@ -48,7 +48,7 @@
 		<div class="row">
 			<h1>Member Join Page</h1>
 
-			<form class="form-horizontal" action="./memberJoin.do" method="post">
+			<form class="form-horizontal" action="./memberJoin" method="post">
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="id">ID:</label>
 					<div class="col-sm-10">

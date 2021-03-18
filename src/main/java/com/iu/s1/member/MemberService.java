@@ -20,11 +20,9 @@ public class MemberService {
 		return memberDTO;
 	}
 	
-	public int memberJoin()throws Exception{
-		MemberDTO memberDTO = new MemberDTO();
-		int result = memberDAO.join(memberDTO);
+	public int memberJoin(MemberDTO memberDTO)throws Exception{
+		return memberDAO.join(memberDTO);//wow....wow,,,wow!!!
 		
-		return result;
 	}
 	
 }

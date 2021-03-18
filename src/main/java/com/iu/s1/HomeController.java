@@ -41,7 +41,7 @@ public class HomeController {
 	}
 	@RequestMapping(value="/member/memberJoin.do")
 	public void memberJoin() {
-		System.out.println("test2~~~");
+		System.out.println("여기는 홈컨트롤러");
 	}
 	
 }

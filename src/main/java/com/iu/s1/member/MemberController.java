@@ -1,11 +1,10 @@
 package com.iu.s1.member;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,7 +20,7 @@ public class MemberController {
 
 
 	@RequestMapping(value="/member/memberLogin")
-	public String memberLogin2(String name, int age) {
+	public String memberLogin(String name, int age) {
 
 		System.out.println("히히");
 		//		String name = request.getParameter("name");
@@ -34,7 +33,7 @@ public class MemberController {
 
 
 	@RequestMapping(value="/member/memberLogin", method=RequestMethod.POST)
-	public String memberLogin(HttpServletRequest request)throws Exception{
+	public String memberLogin2(HttpServletRequest request)throws Exception{
 
 		System.out.println("확인확인");
 
@@ -53,20 +52,26 @@ public class MemberController {
 		return "member/memberLogin";
 	}
 	@RequestMapping(value="/member/memberJoin")
-	public String memberJoin(String id, String pw) {
+	public String memberJoin(/* String id, String pw */) {
 		
-		System.out.println(id);
-		System.out.println(pw);
+//		System.out.println(id);
+//		System.out.println(pw);
 		
 		return "member/memberJoin";
 	}
 	@RequestMapping(value="member/memberJoin", method=RequestMethod.POST)
-	public String memberJoin2(HttpServletRequest request) throws Exception{
+	public void memberJoin2(String id, String pw, String email, String phone, String name) throws Exception{
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setId(id);
+		memberDTO.setPw(pw);
+		memberDTO.setName(name);
+		memberDTO.setEmail(email);
+		memberDTO.setphone(phone);
 		
-		int result = memberService.memberJoin();
+		int result = memberService.memberJoin(memberDTO);
 		System.out.println(result);
 		
-		return "/home";
+//		return "/home"; void였넹,,ㅎ
 	}
 
 
