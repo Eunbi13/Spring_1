@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
@@ -33,24 +34,24 @@ public class MemberController {
 
 
 	@RequestMapping(value="/member/memberLogin", method=RequestMethod.POST)
-	public String memberLogin(HttpServletRequest request)throws Exception{
+	public String memberLogin(MemberDTO memberDTO, ModelAndView modelAndView /*Model model*/)throws Exception{
 
 		System.out.println("확인확인");
 
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("pw"));
+//		System.out.println(request.getParameter("id"));
+//		System.out.println(request.getParameter("pw"));
+//
+//		MemberDTO memberDTO= new MemberDTO();
+//		memberDTO.setId(request.getParameter("id"));
+//		memberDTO.setPw(request.getParameter("pw"));
 
-		MemberDTO memberDTO= new MemberDTO();
-		memberDTO.setId(request.getParameter("id"));
-		memberDTO.setPw(request.getParameter("pw"));
-
-		memberDTO =memberService.memberLogin(memberDTO);//jsp로 데이터를 보냄
-		System.out.println(memberDTO);
+		memberDTO =memberService.memberLogin(memberDTO );
+		
 
 		
-		request.setAttribute("dto", memberDTO);
-		
-		
+//		request.setAttribute("dto", memberDTO);
+		//request 없이 jsp로 데이터를 보내는 Model 데이터를 운반하는 용도 데이터를 보내면 사라짐 리스폰스랑 같이 사라짐
+		model.addAttribute("dto", memberDTO);
 		
 		String str = "";
 		if(memberDTO !=null) {
