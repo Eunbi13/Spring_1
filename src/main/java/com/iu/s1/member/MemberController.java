@@ -33,9 +33,9 @@ public class MemberController {
 	}
 
 
-	@RequestMapping(value="/member/memberLogin", method=RequestMethod.POST)
-	public String memberLogin(MemberDTO memberDTO, ModelAndView modelAndView /*Model model*/)throws Exception{
-
+	@RequestMapping(value="/member/memberLogin", method=RequestMethod.POST)				//Model은 여기서만 가능하다 추상클래스라서 new를 사용해서 선언 불가능
+	public ModelAndView memberLogin(MemberDTO memberDTO/* , ModelAndView modelAndView */ /*Model model*/)throws Exception{
+		
 		System.out.println("확인확인");
 
 //		System.out.println(request.getParameter("id"));
@@ -47,20 +47,22 @@ public class MemberController {
 
 		memberDTO =memberService.memberLogin(memberDTO );
 		
-
+		ModelAndView modelAndView = new ModelAndView();//얘는 그냥 new 선언해서 생성 가능
 		
 //		request.setAttribute("dto", memberDTO);
 		//request 없이 jsp로 데이터를 보내는 Model 데이터를 운반하는 용도 데이터를 보내면 사라짐 리스폰스랑 같이 사라짐
 		/* model.addAttribute("dto", memberDTO); */
+		modelAndView.addObject("dto", memberDTO);
+		modelAndView.setViewName("member/memberPage");//스트링을 리턴도 실제로 전송되는거 ㅇㅇ
 		
-		String str = "";
-		if(memberDTO !=null) {
-			str="member/memberPage";
-		}else {
-			str="member/memberLogin";
-		}
+//		String str = "";
+//		if(memberDTO !=null) {
+//			str="member/memberPage";
+//		}else {
+//			str="member/memberLogin";//얘가 뷰 객체에 담긴데,,,!
+//		} 우리가 이거 보내도 스트링이 모델앤뷰타입으로 리턴이 됨 그냥 편의상에도 가능하다 
 
-		return str;
+		return modelAndView;
 	}
 	@RequestMapping(value="/member/memberJoin")
 	public String memberJoin(/* String id, String pw */) {
