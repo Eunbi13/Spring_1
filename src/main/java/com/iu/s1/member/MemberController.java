@@ -1,10 +1,10 @@
 package com.iu.s1.member;
 
-import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,12 +65,11 @@ public class MemberController {
 		return modelAndView;
 	}
 	@RequestMapping(value="/member/memberJoin")
-	public String memberJoin(/* String id, String pw */) {
+	public void memberJoin(/* String id, String pw */) {
 		
 //		System.out.println(id);
 //		System.out.println(pw);
 		
-		return "member/memberJoin";
 	}
 	@RequestMapping(value="member/memberJoin", method=RequestMethod.POST)//데이터베이스 셀렉트이고
 	public void memberJoin(MemberDTO memberDTO) throws Exception{//이러면 꺼낼 필요가 없으니까 위에꺼랑 다르게!!
