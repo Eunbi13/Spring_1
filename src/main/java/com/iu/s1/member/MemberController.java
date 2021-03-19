@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,20 +20,20 @@ public class MemberController {
 
 
 	@RequestMapping(value="/member/memberLogin")
-	public String memberLogin(String name, int age) {
+	public String memberLogin(/* String name, int age */) {
 
 		System.out.println("히히");
 		//		String name = request.getParameter("name");
 		//		int age = Integer.parseInt(request.getParameter("age"));
-
-		System.out.println(name);
-		System.out.println(age);
+//
+//		System.out.println(name);
+//		System.out.println(age);
 		return "member/memberLogin";
 	}
 
 
 	@RequestMapping(value="/member/memberLogin", method=RequestMethod.POST)
-	public String memberLogin2(HttpServletRequest request)throws Exception{
+	public String memberLogin(HttpServletRequest request)throws Exception{
 
 		System.out.println("확인확인");
 
@@ -44,12 +44,22 @@ public class MemberController {
 		memberDTO.setId(request.getParameter("id"));
 		memberDTO.setPw(request.getParameter("pw"));
 
-		memberDTO =memberService.memberLogin(memberDTO);
-
+		memberDTO =memberService.memberLogin(memberDTO);//jsp로 데이터를 보냄
 		System.out.println(memberDTO);
 
+		
+		request.setAttribute("dto", memberDTO);
+		
+		
+		
+		String str = "";
+		if(memberDTO !=null) {
+			str="member/memberPage";
+		}else {
+			str="member/memberLogin";
+		}
 
-		return "member/memberLogin";
+		return str;
 	}
 	@RequestMapping(value="/member/memberJoin")
 	public String memberJoin(/* String id, String pw */) {
@@ -59,8 +69,8 @@ public class MemberController {
 		
 		return "member/memberJoin";
 	}
-	@RequestMapping(value="member/memberJoin", method=RequestMethod.POST)
-	public void memberJoin2(MemberDTO memberDTO) throws Exception{
+	@RequestMapping(value="member/memberJoin", method=RequestMethod.POST)//데이터베이스 셀렉트이고
+	public void memberJoin(MemberDTO memberDTO) throws Exception{//이러면 꺼낼 필요가 없으니까 위에꺼랑 다르게!!
 
 		
 		int result = memberService.memberJoin(memberDTO);
