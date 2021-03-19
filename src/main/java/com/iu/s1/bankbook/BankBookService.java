@@ -11,7 +11,7 @@ public class BankBookService {
 	private BankBookDAO bankBookDAO;
 	
 	
-	//리스트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    리스트    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public List<BankBookDTO> getList() throws Exception{
 	
 //		List<BankBookDTO> ar=bankBookDAO.getList(); 이제 이거 안해도 되네,,
@@ -20,7 +20,7 @@ public class BankBookService {
 	}
 	
 	
-	//상세정보@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    상세정보    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public BankBookDTO getSelect(BankBookDTO bankBookDTO) throws Exception{
 		
 //		bankBookDTO = bankBookDAO.getSelect(bankBookDTO);
@@ -29,7 +29,7 @@ public class BankBookService {
 	}
 	
 	
-	//정보 추가@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    정보 추가    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public int setAdd(BankBookDTO bankBookDTO)throws Exception{
 		int result = bankBookDAO.setAdd(bankBookDTO);
 		return result;

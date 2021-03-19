@@ -1,7 +1,6 @@
 package com.iu.s1.bankbook;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class BankBookDAO {
 			bankBookDTO.setRate(rs.getDouble("rate"));
 			bankBookDTO.setSal(rs.getString("sal"));
 			
-			//컬렉터;;; 어레이리스트;;;
+			//컬렉터=> 어레이리스트;;;
 			ar.add(bankBookDTO); //데이터 유무 사이즈로 구분
 		}
 	
