@@ -8,23 +8,37 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.iu.s1.user01.User01Login;
 
 
 @Repository
 public class BankBookDAO {
+	@Autowired
+	private User01Login user01Login;
+	
+	
+	
+	
 	//getList
 	//bankbook 테이블의 모든 데이터 조회 후 리턴
 	public List<BankBookDTO> getList() throws Exception{
 		ArrayList<BankBookDTO> ar = new ArrayList<BankBookDTO>();
 		
-		String user="user01";
-		String password="user01";
-		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
-		String driver = "oracle.jdbc.driver.OracleDriver";
+//		String user="user01";
+//		String password="user01";
+//		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
+//		String driver = "oracle.jdbc.driver.OracleDriver";
+//		
+//		Class.forName(driver);
+//		Connection con = DriverManager.getConnection(url, user, password);
 		
-		Class.forName(driver);
-		Connection con = DriverManager.getConnection(url, user, password);
+		
+		Connection con =user01Login.user01Login();
+		
+		
 		//정보입력, 드라이버 연결, 컨넥션, sql, ?셋팅, 미리받기, 결과 전송 처리, 종료
 		String sql = "select * from bankbook";
 		PreparedStatement st = con.prepareStatement(sql);
@@ -51,13 +65,17 @@ public class BankBookDAO {
 	
 	public BankBookDTO getSelect(BankBookDTO bankBookDTO)throws Exception{
 		
-		String user="user01";
-		String password="user01";
-		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
-		String driver = "oracle.jdbc.driver.OracleDriver";
+
+//		String user="user01";
+//		String password="user01";
+//		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
+//		String driver = "oracle.jdbc.driver.OracleDriver";
+//		
+//		Class.forName(driver);
+//		Connection con = DriverManager.getConnection(url, user, password);
 		
-		Class.forName(driver);
-		Connection con = DriverManager.getConnection(url, user, password);
+		Connection con =user01Login.user01Login();
+		
 		
 		String sql = "select * from bankbook where booknum=?";
 		PreparedStatement st = con.prepareStatement(sql);
@@ -85,23 +103,30 @@ public class BankBookDAO {
 		//여기까지 하고 테스트를 했어야했음 ㅠㅠ
 	}
 	
-	public int setWrite(BankBookDTO bankBookDTO) throws Exception {
-		String user = "user01";
-		String password = "user01";
-		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
-		String driver = "oracle.jdbc.driver.OracleDriver";
+	public int setAdd(BankBookDTO bankBookDTO) throws Exception {
+
+//		String user="user01";
+//		String password="user01";
+//		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
+//		String driver = "oracle.jdbc.driver.OracleDriver";
+//		
+//		Class.forName(driver);
+//		Connection con = DriverManager.getConnection(url, user, password);
 		
-		Class.forName(driver);
-		Connection con = DriverManager.getConnection(url, user, password);
+		
+		Connection con =user01Login.user01Login();
+		
+		
+		
 		String sql = "insert into bankbook (bookname, booknum, rate, sal) values(?, bank_seq.nextval, ?, ?)";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, bankBookDTO.getBookName());
 		st.setDouble(2, bankBookDTO.getRate());
 		st.setString(3, bankBookDTO.getSal());
 		
-		int result = st.executeUpdate();
 		//처리
-			bankBookDTO =null;
+			int result = st.executeUpdate();
+			
 		
 		//종료
 	
@@ -111,5 +136,38 @@ public class BankBookDAO {
 		return result;
 		
 	}
+	
+	public int setUpdate(BankBookDTO bankBookDTO) throws Exception{
+
+		Connection con=user01Login.user01Login();
+		String sql = "UPDATE bankbook set bookname=?, rate=?, sal=? where booknum=?;";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, bankBookDTO.getBookName());
+		st.setDouble(2, bankBookDTO.getRate());
+		st.setString(3, bankBookDTO.getSal());
+		st.setLong(4, bankBookDTO.getBookNum());
+		
+		int result=st.executeUpdate();
+		
+		
+		st.close();
+		con.close();
+		
+		return result;
+	}
+	
+	public int setDelet(BankBookDTO bankBookDTO)throws Exception{
+		Connection con = user01Login.user01Login();
+		String sql = "delete bankbook where booknum=?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setLong(1, bankBookDTO.getBookNum());
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result;
+	}
+	
 	
 }

@@ -2,36 +2,49 @@ package com.iu.s1.bankbook;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BankBookService {
-
+	@Autowired
 	private BankBookDAO bankBookDAO;
 	
-	public List getList() throws Exception{
 	
-		List<BankBookDTO> ar=bankBookDAO.getList();
+	//리스트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	public List<BankBookDTO> getList() throws Exception{
+	
+//		List<BankBookDTO> ar=bankBookDAO.getList(); 이제 이거 안해도 되네,,
 		
-		return ar;
+		return bankBookDAO.getList();
 	}
 	
+	
+	//상세정보@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public BankBookDTO getSelect(BankBookDTO bankBookDTO) throws Exception{
 		
-		bankBookDTO = bankBookDAO.getSelect(bankBookDTO);
+//		bankBookDTO = bankBookDAO.getSelect(bankBookDTO);
 		
-		return bankBookDTO;
+		return bankBookDAO.getSelect(bankBookDTO);
 	}
 	
-	public void setUpdate() throws Exception{
-		
+	
+	//정보 추가@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	public int setAdd(BankBookDTO bankBookDTO)throws Exception{
+		int result = bankBookDAO.setAdd(bankBookDTO);
+		return result;
 	}
 	
-	public void setAdd()throws Exception{
-		
+	
+//업데이트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	public int setUpdate(BankBookDTO bankBookDTO) throws Exception{
+		int result = bankBookDAO.setUpdate(bankBookDTO);
+		return result;
 	}
 	
-	public void delete()throws Exception{
+	
+	//삭제@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	public void setDelete()throws Exception{
 		
 	}
 	
