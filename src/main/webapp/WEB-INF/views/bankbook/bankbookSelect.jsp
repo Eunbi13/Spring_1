@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -59,13 +59,21 @@
 						<th>Sal</th>
 					</tr>
 				</thead>
-
+				<c:if test="${empty select}">없는 상품입니다</c:if>
 				<tr>
-					<td>${requestScope.select.bookName}</td>
+					<td><c:if test="${empty select}">없는 상품입니다</c:if>${requestScope.select.bookName}</td>
+					<%--<c:if test="${select==null}">없는 상품입니다</c:if> 이렇게 쓰는 거도 가능!!--%>
 					<td>${select.rate}</td>
 					<td>${select.sal }</td>
+					<!-- 얘네가 null을 처리해줌 출력 안하는 거로,, 에러발생 안시키고! -->
 				</tr>
 			</table>
+			
+			
+			<a href="./bankbookUpdate" class="btn btn-danger">Update</a>
+				<a href="./bankbookDelete" class="btn btn-danger">Delete</a>
+		
+		
 		</div>
 	</div>
 

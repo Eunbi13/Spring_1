@@ -2,6 +2,9 @@ package com.iu.s1.bankbook;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +20,7 @@ public class BankBookController {
 	@Autowired
 	private BankBookService bankbookService;
 	
-	//리스트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   리스트    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "/bankbook/bankbookList")
 	public void getList(Model model) throws Exception{
 //		ModelAndView modelAndView = new ModelAndView();
@@ -31,7 +34,7 @@ public class BankBookController {
 //		return modelAndView;
 	}
 	
-	//상세 정보@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    상세 정보    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value= "/bankbook/bankbookSelect")
 	public ModelAndView getSelect(BankBookDTO bankBookDTO, ModelAndView modelAndView /* , Model model 써도 됨 왜냐면 viewName을 쓸 필요가 없으니까*/) throws Exception{
 		//ModelAndView modelAndView = new ModelAndView();
@@ -43,24 +46,31 @@ public class BankBookController {
 		return modelAndView;
 	}
 	
-	//더하기@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   더하기    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "/bankbook/bankbookAdd")
 	public void setAdd() throws Exception{
 		
 	}
 	
 	@RequestMapping(value = "/bankbook/bankbookAdd", method=RequestMethod.POST)
-	public ModelAndView setAdd(BankBookDTO bankBookDTO) throws Exception{
-		ModelAndView modelAndView = new ModelAndView();
+	public ModelAndView setAdd(BankBookDTO bankBookDTO, ModelAndView modelAndView) throws Exception{
+		
 		
 		int result = bankbookService.setAdd(bankBookDTO);
 		System.out.println("Add: "+result);
 		
-		modelAndView.setViewName("redirect:bankbook/bankbookList");
-		return modelAndView;
+		modelAndView.setViewName("redirect:./bankbookList");//여기가 상대주소가 아니면 컨텍스트 네임부터 쓰는 절대 경로가 필요함 =>둘 다 쓸수 있긴 함 
+		// 절대 경로 /abc
+		//상대경로 ./abc
+		//상대경로 ../abc
+		//상대경로 abc 
+		//절대경로는 localhost/절대경로 순으로 나오기 때문에 내가 redirect: /bankbook/bankbookList를 친다면 localhost/bankbook/bankbookList가 되어서 404가 나오는거임
+		//이와 같은 계열로 상대경로를 생각해보자 ./bankbookList와 bankbookList는 상대경로이고 
+		//내가 bankbook/bankbookList를 친다면 다시 보내는 redirect가 지금 bankbook폴더 내에 있기 때문에 /localhost/s1/bankbook/bankbook/bankbookList가 뜨는거임 
+		return modelAndView; 
 	}
 	
-	//업데이트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    업데이트    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "/bankbook/bankbookUpdate")
 	public void setUpdate() throws Exception{
 		
@@ -70,17 +80,19 @@ public class BankBookController {
 	public ModelAndView setUpdate(BankBookDTO bankBookDTO) throws Exception{
 		ModelAndView modelAndView = new ModelAndView();
 		
+		bankBookDTO.setBookNum(bankBookDTO.getBookNum());
+		
 		int result = bankbookService.setUpdate(bankBookDTO);
 		System.out.println("Update: "+result);
-		modelAndView.setViewName("redirect: bankbook/bankbookList");
+		modelAndView.setViewName("redirect: bankbookList");
 		
 		return modelAndView;
 	}
-	//삭제@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    삭제    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "/bankbook/bankbookDelete")
 	public ModelAndView setDelete(BankBookDTO bankBookDTO) throws Exception{
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect: bankbook/bankbookList");
+		modelAndView.setViewName("redirect: bankbookList");
 		
 		return modelAndView;
 	}
