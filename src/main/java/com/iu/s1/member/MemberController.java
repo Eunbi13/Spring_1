@@ -51,7 +51,7 @@ public class MemberController {
 		
 //		request.setAttribute("dto", memberDTO);
 		//request 없이 jsp로 데이터를 보내는 Model 데이터를 운반하는 용도 데이터를 보내면 사라짐 리스폰스랑 같이 사라짐
-		model.addAttribute("dto", memberDTO);
+		/* model.addAttribute("dto", memberDTO); */
 		
 		String str = "";
 		if(memberDTO !=null) {
