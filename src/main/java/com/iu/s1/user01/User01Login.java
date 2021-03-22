@@ -3,8 +3,8 @@ package com.iu.s1.user01;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import org.springframework.stereotype.Repository;
-@Repository
+import org.springframework.stereotype.Component;
+@Component
 public class User01Login {
 
 	public Connection user01Login() throws Exception{
